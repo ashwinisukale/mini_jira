@@ -27,6 +27,16 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def users
+    @users = Project.find(params[:project_id]).users
+    render json: @users, each_serializer: UserSerializer
+  end
+
+  def todos
+    @todos = Project.find(params[:project_id]).todos
+    render json: @todos, each_serializer: TodoSerializer
+  end
+
   # PATCH/PUT /projects/1
   def update
     if @project.update_with_users(user_project_params)
@@ -51,11 +61,15 @@ class ProjectsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def user_project_params
       params.require(:project).permit(:name, :description).tap do |whitelisted|
-        whitelisted[:user_ids] = params[:user_ids]
+        whitelisted.require(%i[user_ids project_id])
       end
     end
 
     def project_params
       user_project_params.except(:user_ids)
+    end
+
+    def json_resources(klass, records, context = nil)
+      resources = records.map { |record| klass.new(record, context) }
     end
 end

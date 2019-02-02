@@ -30,7 +30,6 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   def update
     if @todo.update_with_user(todo_user_params)
-      p @todo
       render json: @todo
     else
       render json: @todo.errors, status: :unprocessable_entity
@@ -52,7 +51,7 @@ class TodosController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def todo_user_params
       params.require(:todo).permit(:name, :description, :status, :project_id).tap do |whitelisted|
-        whitelisted[:user_ids] = params[:user_ids]
+        whitelisted[:user_id] = params[:user_id]
       end
     end
 
