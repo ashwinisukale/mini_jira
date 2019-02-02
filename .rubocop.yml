@@ -1,0 +1,18 @@
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/*'
+  TargetRubyVersion: 2.5
+
+inherit_gem:
+  rubocop-rails_config:
+    - config/rails.yml
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/AndOr:
+  EnforcedStyle: conditionals
