@@ -3,15 +3,14 @@
 class Todo < ApplicationRecord
   enum status: %w[open in_progress done]
   belongs_to :project
-  has_many :todo_user_projects, dependent: :destroy
-  has_many :user_projects, through: :todo_user_projects
-  has_many :users, through: :user_projects
+  has_one :user_todo
+  has_one :user, through: :user_todo
 
   def update_with_user(params)
     update(params.except(:user_ids))
     return if params[:user_ids].blank?
 
-    assign_user_to_todo(params[:user_ids])
+    #assign_user_to_todo(params[:user_ids])
    end
 
   def assign_user_to_todo(params)

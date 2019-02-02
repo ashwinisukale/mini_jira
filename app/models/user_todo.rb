@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserRole < ApplicationRecord
+class UserTodo < ApplicationRecord
+  belongs_to :todo
   belongs_to :user
-  belongs_to :role
 end
