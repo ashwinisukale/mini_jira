@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'dashboard/data'
   resources :todos
   resources :roles
   resources :projects do

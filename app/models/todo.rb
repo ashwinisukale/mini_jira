@@ -10,5 +10,5 @@ class Todo < ApplicationRecord
     update(params.except(:user_id))
     return if params[:user_id].blank?
     user << User.find(params[:user_id])
-   end
+  end
 end

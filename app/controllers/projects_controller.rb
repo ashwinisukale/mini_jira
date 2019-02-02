@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def user_project_params
       params.require(:project).permit(:name, :description).tap do |whitelisted|
-        whitelisted.require(%i[user_ids project_id])
+        whitelisted[:user_ids] = params[:user_ids]
       end
     end
 
@@ -69,7 +69,4 @@ class ProjectsController < ApplicationController
       user_project_params.except(:user_ids)
     end
 
-    def json_resources(klass, records, context = nil)
-      resources = records.map { |record| klass.new(record, context) }
-    end
 end
