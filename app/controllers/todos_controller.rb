@@ -56,6 +56,6 @@ class TodosController < ApplicationController
     end
 
     def todo_params
-      todo_user_params.except(:user_ids)
+      todo_user_params.except(:user_id)
     end
 end
