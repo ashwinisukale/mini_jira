@@ -3,6 +3,7 @@
 class TodosController < ApplicationController
   before_action :authenticate_user!
   before_action :set_todo, only: %i[show update destroy]
+  before_action :only_admin, except: [:show, :change_status]
 
   # GET /todos
   def index
@@ -36,6 +37,15 @@ class TodosController < ApplicationController
     end
   end
 
+  # PATCH/PUT /todos/1/change_status
+  def change_status
+    if @todo.update(dev_params)
+      render json: @todo
+    else
+      render json: @todo.errors, status: :unprocessable_entity
+    end
+  end
+
   # DELETE /todos/1
   def destroy
     @todo.destroy
@@ -57,5 +67,9 @@ class TodosController < ApplicationController
 
     def todo_params
       todo_user_params.except(:user_id)
+    end
+
+    def dev_params
+      params.permit(:status)
     end
 end

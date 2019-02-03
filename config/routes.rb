@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'dashboard/data'
-  resources :todos
+  resources :users, only: [:index]
+  get 'admin/data', to: 'dashboard#data'
+  get 'data', to: 'dashboard#user_data'
+  resources :todos do
+  	put 'change_status'
+  end
   resources :roles
   resources :projects do
   	get 'users'

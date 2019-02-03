@@ -2,6 +2,7 @@
 
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :only_admin
   before_action :set_project, only: %i[show update destroy]
 
   # GET /projects
@@ -68,5 +69,4 @@ class ProjectsController < ApplicationController
     def project_params
       user_project_params.except(:user_ids)
     end
-
 end
