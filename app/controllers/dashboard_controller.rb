@@ -9,7 +9,9 @@ class DashboardController < ApplicationController
 	  		array << { "name" => user.name, "todos" => user.todos.group_by(&:status) }
 	  	end
   	else
-  		Project.all.left_joins(:todos).includes(:todos).distinct.each do |project|
+      condition = project_params[:project_id].present? ? Project.where(id: project_params[:project_id
+      ]) : Project.all
+  		condition.left_joins(:todos).includes(:todos).distinct.each do |project|
 	  		array << { "name" => project.name, "todos" => project.todos.group_by(&:status) }
 	  	end
   	end
@@ -28,6 +30,6 @@ class DashboardController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
     def project_params
-      params.permit(:by_project,:by_user, :user_id)
+      params.permit(:by_project,:by_user, :user_id, :project_id)
     end
 end
