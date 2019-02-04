@@ -6,6 +6,6 @@ class ApplicationController < ActionController::API
   private
 
   def only_admin
-    render json: { message: "Only admin can access this data."} unless current_user.admin?
+    render json: { message: "Only admin can access this data."}, status: :unprocessable_entity unless current_user.admin?
   end
 end

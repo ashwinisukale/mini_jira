@@ -39,7 +39,8 @@ class TodosController < ApplicationController
 
   # PATCH/PUT /todos/1/change_status
   def change_status
-    if @todo.update(dev_params)
+    @todo = Todo.find(dev_params[:todo_id])
+    if @todo.update(dev_params.except(:todo_id))
       render json: @todo
     else
       render json: @todo.errors, status: :unprocessable_entity
@@ -70,6 +71,6 @@ class TodosController < ApplicationController
     end
 
     def dev_params
-      params.permit(:status)
+      params.permit(:status,:todo_id)
     end
 end
