@@ -4,6 +4,9 @@ class Project < ApplicationRecord
   has_many :todos, dependent: :destroy
   has_many :user_projects, dependent: :destroy
   has_many :users, through: :user_projects
+
+  validates :name, presence: true
+  
   accepts_nested_attributes_for :users
 
   def update_with_users(params)

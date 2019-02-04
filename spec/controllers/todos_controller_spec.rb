@@ -60,7 +60,7 @@ RSpec.describe TodosController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
-      it 'creates a new Todo' do
+      xit 'creates a new Todo' do
         expect do
           post :create, params: { todo: valid_attributes }, session: valid_session
         end.to change(Todo, :count).by(1)
